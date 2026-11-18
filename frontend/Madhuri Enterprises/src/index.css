@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-red: #B50916;
+  --color-brand-gold: #FFC928;
+  --color-brand-saffron: #FF8C00;
+  --color-brand-cream: #FFF4DC;
+  --color-brand-brown: #32180C;
+  --color-brand-orange: #E8460A;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-devanagari: 'Noto Sans Devanagari', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  background-color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #fff4dc;
+}
+::-webkit-scrollbar-thumb {
+  background: #B50916;
+  border-radius: 3px;
+}
+
+/* Hindi font */
+.hindi {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+}
+
+/* Gradient backgrounds */
+.hero-gradient {
+  background: linear-gradient(135deg, #B50916 0%, #E8460A 30%, #FF8C00 60%, #FFC928 100%);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #FFC928 0%, #FF8C00 50%, #FFC928 100%);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 201, 40, 0.4); }
+  50% { box-shadow: 0 0 20px 8px rgba(255, 201, 40, 0.2); }
+}
+
+@keyframes smoke {
+  0% { opacity: 0.8; transform: translateY(0) scaleX(1); }
+  50% { opacity: 0.4; transform: translateY(-30px) scaleX(1.5); }
+  100% { opacity: 0; transform: translateY(-60px) scaleX(2); }
+}
+
+@keyframes particle {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-float-delay { animation: float 3s ease-in-out infinite 1.5s; }
+.animate-pulse-gold { animation: pulse-gold 2s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+
+.shimmer-text {
+  background: linear-gradient(90deg, #FFC928 0%, #fff 50%, #FFC928 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Card hover */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(181, 9, 22, 0.25);
+}
+
+/* WhatsApp button */
+.whatsapp-btn {
+  background: #25D366;
+  color: white;
+}
+.whatsapp-btn:hover {
+  background: #128C7E;
+}
+
+/* Navbar transition */
+.navbar-transparent {
+  background: transparent;
+}
+.navbar-solid {
+  background: white;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+/* Overlay cart */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 380px;
+  height: 100vh;
+  background: white;
+  z-index: 1000;
+  box-shadow: -5px 0 30px rgba(0,0,0,0.2);
+  overflow-y: auto;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loader */
+.loader-bg {
+  background: linear-gradient(135deg, #B50916, #E8460A, #FFC928);
+}
+
+/* Section divider */
+.section-divider {
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #B50916, #FFC928);
+  border-radius: 2px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  height: auto;
+}
