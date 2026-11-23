@@ -246,7 +246,7 @@ export default function Hero() {
             >
               {!imgError2 ? (
                 <img
-                  src="/product2.jpg"
+                  src="/aggarbati2.jpeg"
                   alt="Jay Baba Ji Agarbatti Big Box ₹140"
                   onError={() => setImgError2(true)}
                   style={{
@@ -281,7 +281,7 @@ export default function Hero() {
             >
               {!imgError1 ? (
                 <img
-                  src="/product1.jpg"
+                  src="/aggarbaati.jpeg"
                   alt="Jay Baba Ji Agarbatti Small Packet ₹15"
                   onError={() => setImgError1(true)}
                   style={{
