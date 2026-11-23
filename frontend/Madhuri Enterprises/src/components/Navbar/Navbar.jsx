@@ -21,6 +21,7 @@ export default function Navbar() {
 
   const scrollTo = (id) => {
     setMenuOpen(false);
+    setUserMenuOpen(false);
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
@@ -34,50 +35,117 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
-          background: scrolled ? 'white' : 'white',
-          boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.12)' : '0 1px 8px rgba(0,0,0,0.08)',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 999,
+          background: 'white',
+          boxShadow: '0 2px 16px rgba(0,0,0,0.10)',
+          transition: 'all 0.3s ease',
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-center justify-between h-16">
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            height: '70px',
+          }}>
 
-            {/* Logo */}
-            <button onClick={() => scrollTo('home')} className="flex items-center gap-2 group">
-              <div
-                className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-md"
-                style={{ background: 'linear-gradient(135deg, #E8460A, #FFC928)' }}
-              >
+            {/* ── Logo ── */}
+            <button
+              onClick={() => scrollTo('home')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px',
+                flexShrink: 0,
+              }}
+            >
+              <div style={{
+                width: '44px',
+                height: '44px',
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #E8460A, #FFC928)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                fontWeight: '800',
+                fontSize: '12px',
+                boxShadow: '0 3px 10px rgba(232,70,10,0.4)',
+                flexShrink: 0,
+              }}>
                 JBJ
               </div>
-              <div className="text-left">
-                <div className="font-bold text-base leading-tight" style={{ color: '#B50916' }}>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontWeight: '800', fontSize: '16px', color: '#B50916', lineHeight: '1.2' }}>
                   Jay Baba Ji
                 </div>
-                <div className="text-xs text-orange-500 leading-tight font-medium">Agarbatti</div>
+                <div style={{ fontWeight: '500', fontSize: '12px', color: '#FF8C00', lineHeight: '1.2' }}>
+                  Agarbatti
+                </div>
               </div>
             </button>
 
-            {/* Desktop Nav Links */}
-            <div className="hidden md:flex items-center gap-1">
+            {/* ── Desktop Nav Links ── */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+              className="desktop-nav"
+            >
               {navLinks.map(link => (
                 <button
                   key={link.id}
                   onClick={() => scrollTo(link.id)}
-                  className="px-4 py-2 rounded-full text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 transition-all duration-200"
+                  style={{
+                    padding: '10px 20px',
+                    borderRadius: '50px',
+                    border: 'none',
+                    background: 'none',
+                    fontSize: '15px',
+                    fontWeight: '600',
+                    color: '#444',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    whiteSpace: 'nowrap',
+                  }}
+                  onMouseEnter={e => { e.target.style.background = '#fff0f0'; e.target.style.color = '#B50916'; }}
+                  onMouseLeave={e => { e.target.style.background = 'none'; e.target.style.color = '#444'; }}
                 >
                   {link.label}
                 </button>
               ))}
             </div>
 
-            {/* Right side */}
-            <div className="flex items-center gap-2">
+            {/* ── Right Side ── */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+
               {/* Search */}
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 transition-colors"
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '50%',
+                  border: '1.5px solid #e5e7eb',
+                  background: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: '#555',
+                  flexShrink: 0,
+                }}
+                className="hide-mobile"
               >
                 <Search size={18} />
               </button>
@@ -85,42 +153,102 @@ export default function Navbar() {
               {/* Cart */}
               <button
                 onClick={() => setCartOpen(true)}
-                className="relative w-9 h-9 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 transition-colors"
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '50%',
+                  border: '1.5px solid #e5e7eb',
+                  background: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: '#555',
+                  position: 'relative',
+                  flexShrink: 0,
+                }}
               >
                 <ShoppingCart size={18} />
                 {totalItems > 0 && (
-                  <span
-                    className="absolute -top-1 -right-1 w-5 h-5 rounded-full text-white text-xs flex items-center justify-center font-bold"
-                    style={{ background: '#B50916' }}
-                  >
+                  <span style={{
+                    position: 'absolute',
+                    top: '-4px',
+                    right: '-4px',
+                    width: '20px',
+                    height: '20px',
+                    borderRadius: '50%',
+                    background: '#B50916',
+                    color: 'white',
+                    fontSize: '11px',
+                    fontWeight: '800',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '2px solid white',
+                  }}>
                     {totalItems > 9 ? '9+' : totalItems}
                   </span>
                 )}
               </button>
 
-              {/* Login Button / User Menu */}
+              {/* Login / User */}
               {user ? (
-                <div className="hidden sm:block relative">
+                <div style={{ position: 'relative' }} className="hide-mobile">
                   <button
                     onClick={() => setUserMenuOpen(o => !o)}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border transition-all duration-200 hover:bg-red-50"
-                    style={{ color: '#B50916', borderColor: '#B50916' }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 18px',
+                      borderRadius: '50px',
+                      border: '2px solid #B50916',
+                      background: 'white',
+                      color: '#B50916',
+                      fontSize: '14px',
+                      fontWeight: '700',
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap',
+                    }}
                   >
-                    <User size={15} />
+                    <User size={16} />
                     {user.name.split(' ')[0]}
-                    <ChevronDown size={13} />
+                    <ChevronDown size={14} />
                   </button>
                   {userMenuOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-44 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden z-50">
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <div className="text-xs font-bold text-gray-800 truncate">{user.name}</div>
-                        <div className="text-xs text-gray-400 truncate">{user.email}</div>
+                    <div style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 'calc(100% + 8px)',
+                      width: '200px',
+                      background: 'white',
+                      borderRadius: '16px',
+                      boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
+                      border: '1px solid #f0f0f0',
+                      overflow: 'hidden',
+                      zIndex: 1000,
+                    }}>
+                      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f5f5f5' }}>
+                        <div style={{ fontWeight: '700', fontSize: '13px', color: '#222' }}>{user.name}</div>
+                        <div style={{ fontSize: '11px', color: '#999', marginTop: '2px' }}>{user.email}</div>
                       </div>
                       <button
                         onClick={() => { logout(); setUserMenuOpen(false); }}
-                        className="w-full flex items-center gap-2 px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                        style={{
+                          width: '100%',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '12px 16px',
+                          border: 'none',
+                          background: 'none',
+                          color: '#B50916',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          cursor: 'pointer',
+                        }}
                       >
-                        <LogOut size={14} /> Logout
+                        <LogOut size={15} /> Logout
                       </button>
                     </div>
                   )}
@@ -128,60 +256,143 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => setAuthModalOpen(true)}
-                  className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-full text-white text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:scale-105"
-                  style={{ background: '#B50916' }}
+                  className="hide-mobile"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '11px 24px',
+                    borderRadius: '50px',
+                    border: 'none',
+                    background: 'linear-gradient(135deg, #B50916, #E8460A)',
+                    color: 'white',
+                    fontSize: '15px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 14px rgba(181,9,22,0.35)',
+                    whiteSpace: 'nowrap',
+                    transition: 'all 0.2s',
+                    flexShrink: 0,
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                  onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                 >
-                  <User size={15} />
+                  <User size={16} />
                   Login
                 </button>
               )}
 
-              {/* Mobile menu toggle */}
+              {/* Mobile Hamburger */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-gray-600 hover:bg-gray-100"
+                className="show-mobile"
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '50%',
+                  border: '1.5px solid #e5e7eb',
+                  background: 'white',
+                  display: 'none',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: '#555',
+                  flexShrink: 0,
+                }}
               >
                 {menuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
             </div>
           </div>
 
-          {/* Search bar */}
+          {/* Search Bar */}
           {searchOpen && (
-            <div className="pb-3 px-2">
+            <div style={{ paddingBottom: '12px' }}>
               <input
                 autoFocus
                 type="text"
                 placeholder="Search agarbatti, fragrances..."
-                className="w-full border border-gray-200 rounded-full px-4 py-2 text-sm outline-none focus:border-red-400"
                 onBlur={() => setSearchOpen(false)}
+                style={{
+                  width: '100%',
+                  border: '2px solid #e5e7eb',
+                  borderRadius: '50px',
+                  padding: '10px 20px',
+                  fontSize: '14px',
+                  outline: 'none',
+                  boxSizing: 'border-box',
+                }}
               />
             </div>
           )}
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Dropdown */}
         {menuOpen && (
-          <div className="md:hidden border-t border-gray-100 bg-white px-4 py-3">
+          <div style={{
+            borderTop: '1px solid #f0f0f0',
+            background: 'white',
+            padding: '12px 20px 16px',
+          }}>
             {navLinks.map(link => (
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className="block w-full text-left py-2.5 px-3 text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'left',
+                  padding: '12px 16px',
+                  marginBottom: '4px',
+                  borderRadius: '12px',
+                  border: 'none',
+                  background: 'none',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: '#444',
+                  cursor: 'pointer',
+                }}
               >
                 {link.label}
               </button>
             ))}
             <button
-              className="mt-2 w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-white text-sm font-semibold"
-              style={{ background: '#B50916' }}
               onClick={() => { setMenuOpen(false); setAuthModalOpen(true); }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                width: '100%',
+                marginTop: '8px',
+                padding: '13px',
+                borderRadius: '50px',
+                border: 'none',
+                background: 'linear-gradient(135deg, #B50916, #E8460A)',
+                color: 'white',
+                fontSize: '15px',
+                fontWeight: '700',
+                cursor: 'pointer',
+              }}
             >
-              <User size={15} /> {user ? user.name.split(' ')[0] : 'Login'}
+              <User size={16} />
+              {user ? user.name.split(' ')[0] : 'Login / Register'}
             </button>
           </div>
         )}
       </nav>
+
+      {/* Responsive CSS */}
+      <style>{`
+        @media (max-width: 768px) {
+          .desktop-nav { display: none !important; }
+          .hide-mobile { display: none !important; }
+          .show-mobile { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .show-mobile { display: none !important; }
+        }
+      `}</style>
 
       {authModalOpen && <AuthModal onClose={() => setAuthModalOpen(false)} />}
     </>
